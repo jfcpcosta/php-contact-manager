@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Contact Manager</a>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/contacts">List <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contacts/add">Add Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contacts/export">Export Contacts to CSV</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="/contacts">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <div class="container mt-4">
+        <?php if (Core\Http\FlashBag::has()) : ?>
+            <?php foreach (Core\Http\FlashBag::get() as $message) : ?>
+                <div class="alert alert-<?= $message['type'] ?>">
+                    <?= $message['message'] ?>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Contact</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (count($contacts) > 0 ) : ?>
+                    <?php foreach ($contacts as $contact) : ?>
+                        <tr>
+                            <td><?= $contact->id ?></td>
+                            <td><?= $contact->name ?></td>
+                            <td><?= $contact->email ?></td>
+                            <td>
+                                <a href="/contacts/<?= $contact->id ?>/update">Edit</a>
+                                <a href="/contacts/<?= $contact->id ?>/remove" class="remove-btn">Remove</a>
+                                <a href="/contacts/<?= $contact->id ?>">Detail</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="4">No contacts</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.querySelectorAll('.remove-btn').forEach(el => el.addEventListener('click', onRemoveClickHandler));
+
+        function onRemoveClickHandler(event) {
+            event.preventDefault();
+
+            if (confirm('Remove this contact?')) {
+                window.location = event.target.getAttribute('href');
+            }
+        }
+    </script>
+</body>
+</html>

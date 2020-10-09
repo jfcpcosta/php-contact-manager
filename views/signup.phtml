@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/signin.css">
+</head>
+<body>
+    <form method="post" class="form-signin">
+        <?php if (isset($message)) : ?>
+            <div class="alert alert-danger">
+                <?= $message ?>
+            </div>
+        <?php endif; ?>
+
+        <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+        <label for="inputName" class="sr-only">Name</label>
+        <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus name="name">
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required name="username">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
+
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign Up</button>
+        <a href="/">Login</a>
+    </form>
+
+</body>
+</html>

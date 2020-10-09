@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Contact Manager</a>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/contacts">List</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contacts/add">Add Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contacts/export">Export Contacts to CSV</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="/contacts">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <div class="container mt-4">
+
+        <div class="row">
+            <div class="col-6">
+                <h1><?= $contact->name ?></h1>
+
+                <h5>Email</h5>
+                <p><?= $contact->email ?></p>
+
+                <h5>Phone</h5>
+                <p><?= $contact->phone ?></p>
+
+                <?php if ($contact->image) : ?>
+                    <h5>Photo</h5>
+                    <img src="/<?= $contact->image ?>" width="500">
+                <?php endif; ?>
+            </div>
+            <div class="col-6">
+                <form method="post" action="/contacts/<?= $contact->id ?>/send">
+                    <h1>Send</h1>
+
+                    <div class="form-group">
+                        <label for="subjectInput">Subject</label>
+                        <input type="text" class="form-control" id="subjectInput" placeholder="Subject" name="subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="messageInput">Message</label>
+                        <textarea class="form-control" id="messageInput" placeholder="Message" name="message" rows="10"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+        
+
+    </div>
+</body>
+</html>
