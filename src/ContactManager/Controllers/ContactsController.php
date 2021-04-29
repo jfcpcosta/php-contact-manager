@@ -107,10 +107,10 @@ class ContactsController extends SecuredController {
             try {
                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 $mail->isSMTP();
-                $mail->Host = 'mail.reativ.dev';
+                $mail->Host = 'CHANGE ME: smtp server address';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'flag@reativ.dev';
-                $mail->Password = 'K@8Z;H]wJCow';
+                $mail->Username = 'CHANGE ME: smtp server username';
+                $mail->Password = 'CHANGE ME: smto server asswird';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
                 
